@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-practice",
+  "version": "1.0.0",
+  "description": "practice with node js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Allen-Foo/nodejs-practice.git"
+  },
+  "keywords": [
+    "node",
+    "js"
+  ],
+  "author": "allen-foo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Allen-Foo/nodejs-practice/issues"
+  },
+  "homepage": "https://github.com/Allen-Foo/nodejs-practice#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
