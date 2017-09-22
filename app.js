@@ -3,6 +3,12 @@
 var express = require('express');
 var app = express();
 
+// use app.param() to intercept request
+// convert all the letters the param 'name' to lower case
+app.param('name', (req, res, next) => {
+  req.params.name = req.params.name.toLowerCase();
+  next();
+})
 
 // route with query string
 app.get('/blocks', (req, res) => {
