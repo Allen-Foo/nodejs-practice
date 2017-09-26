@@ -43,12 +43,19 @@ app.get('/blocks/:name', (req, res) => {
 
 app.post('/blocks', parseUrlencoded, (req, res) => {
   var newBlock = req.body;
-  
+
   // console.log('req body', req.body);
   blocks[newBlock.name] = newBlock.description;
   // console.log('blocks', blocks);
 
   res.status(201).json(newBlock.name);
+})
+
+app.delete('/blocks/:name', (req, res) => {
+  delete blocks[req.params.name];
+  
+  // console.log('blocks', blocks);
+  res.sendStatus(200);
 })
 
 app.listen(3000);
