@@ -3,6 +3,9 @@
 var express = require('express');
 var app = express();
 
+var bodyParser = require('body-parser');
+var parseUrlencoded = bodyParser.urlencoded({extended: false});
+
 var blocks = {
   fixed: 'fasten securely in position',
   movable: 'capable of being moved',
@@ -36,6 +39,16 @@ app.get('/blocks/:name', (req, res) => {
   } else {
     res.status(200).json(desc);
   }
+})
+
+app.post('/blocks', parseUrlencoded, (req, res) => {
+  var newBlock = req.body;
+  
+  // console.log('req body', req.body);
+  blocks[newBlock.name] = newBlock.description;
+  // console.log('blocks', blocks);
+
+  res.status(201).json(newBlock.name);
 })
 
 app.listen(3000);

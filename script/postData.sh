@@ -1,0 +1,1 @@
+curl -X POST -d "name=action&description=description for this aciton" http://localhost:3000/blocks
