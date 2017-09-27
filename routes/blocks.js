@@ -34,6 +34,12 @@ router.route('/')
 
 // dynamic route with params
 router.route('/:name')
+  .all((req, res, next) => {
+    // use router.all() to intercept request
+    // convert all the letters the param 'name' to lower case
+    req.params.name = req.params.name.toLowerCase();
+    next();
+  })
   .get((req, res) => {
 
     // handle path not found case
