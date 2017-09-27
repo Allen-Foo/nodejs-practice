@@ -19,43 +19,43 @@ app.param('name', (req, res, next) => {
   next();
 })
 
+app.route('/blocks')
 // route with query string
-app.get('/blocks', (req, res) => {
-  var blocksNames = Object.keys(blocks);
-  if (req.query.limit > 0) {
-    res.json(blocksNames.slice(0, req.query.limit));
-  } else {
-    res.json(blocksNames);
-  }
-})
+  .get((req, res) => {
+    var blocksNames = Object.keys(blocks);
+    if (req.query.limit > 0) {
+      res.json(blocksNames.slice(0, req.query.limit));
+    } else {
+      res.json(blocksNames);
+    }
+  })
+  .post(parseUrlencoded, (req, res) => {
+    var newBlock = req.body;
+
+    // console.log('req body', req.body);
+    blocks[newBlock.name] = newBlock.description;
+    // console.log('blocks', blocks);
+
+    res.status(201).json(newBlock.name);
+  })
 
 // dynamic route with params
-app.get('/blocks/:name', (req, res) => {
+app.route('/blocks/:name')
+  .get((req, res) => {
 
-  // handle path not found case
-  var desc = blocks[req.params.name];
-  if (!desc) {
-    res.status(404).json('cannot find ' + req.params.name);
-  } else {
-    res.status(200).json(desc);
-  }
-})
-
-app.post('/blocks', parseUrlencoded, (req, res) => {
-  var newBlock = req.body;
-
-  // console.log('req body', req.body);
-  blocks[newBlock.name] = newBlock.description;
-  // console.log('blocks', blocks);
-
-  res.status(201).json(newBlock.name);
-})
-
-app.delete('/blocks/:name', (req, res) => {
-  delete blocks[req.params.name];
-  
-  // console.log('blocks', blocks);
-  res.sendStatus(200);
-})
+    // handle path not found case
+    var desc = blocks[req.params.name];
+    if (!desc) {
+      res.status(404).json('cannot find ' + req.params.name);
+    } else {
+      res.status(200).json(desc);
+    }
+  })
+  .delete((req, res) => {
+    delete blocks[req.params.name];
+    
+    // console.log('blocks', blocks);
+    res.sendStatus(200);
+  })
 
 app.listen(3000);
