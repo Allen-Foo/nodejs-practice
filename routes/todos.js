@@ -18,11 +18,11 @@ var Todo = mongoose.model('Todo', {
 router.route('/')
   .get((req, res) => {
     // use mongoose to get all todos
-    Todo.find((err, todos) => {
+    Todo.find().select({"text": 1, "completed": 1, "_id": 0}).exec((err, todos) => {
       if(err)
         res.send(err);
 
-      res.json(todos);
+      res.json(todos)
     })
   })
   .post(parseUrlencoded, (req, res) => {
@@ -30,12 +30,12 @@ router.route('/')
     Todo.create({
       text: req.body.text,
       completed: false
-    }, (err, todos) => {
+    }, (err, todo) => {
       if (err)
         res.send(err);
 
       // get all the todos and send back 
-      Todo.find((error, todos) => {
+      Todo.find().select({"text": 1, "completed": 1, "_id": 0}).exec((error, todos) => {
         if (error)
           res.send(error);
         res.json(todos)

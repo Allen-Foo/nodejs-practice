@@ -10,7 +10,9 @@ var todosRouter = require('./routes/todos');
 
 
 // configuration =================
-mongoose.connect("mongodb://localhost:27017/todoDB")
+mongoose.connect("mongodb://localhost:27017/todoDB", {
+  useMongoClient: true
+})
 // router is mounted in a particular root url
 // only requests to /blocks/* will be sent to our "router"
 app.use('/blocks', blocksRouter);
