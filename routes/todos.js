@@ -13,17 +13,22 @@ var Todo = mongoose.model('Todo', {
   completed: Boolean
 })
 
+const returnAllTodos = (res) => {
+  // get all the todos and send back 
+  Todo.find().select({"text": 1, "completed": 1}).exec((err, todos) => {
+    if(err)
+      res.send(err);
+
+    res.json(todos)
+  })
+}
+
 
 // routes for todo
 router.route('/')
   .get((req, res) => {
     // use mongoose to get all todos
-    Todo.find().select({"text": 1, "completed": 1, "_id": 0}).exec((err, todos) => {
-      if(err)
-        res.send(err);
-
-      res.json(todos)
-    })
+    returnAllTodos(res)
   })
   .post(parseUrlencoded, (req, res) => {
     console.log('req', req.body);
@@ -34,12 +39,7 @@ router.route('/')
       if (err)
         res.send(err);
 
-      // get all the todos and send back 
-      Todo.find().select({"text": 1, "completed": 1}).exec((error, todos) => {
-        if (error)
-          res.send(error);
-        res.json(todos)
-      })
+      returnAllTodos(res)
     })
   })
 
@@ -52,12 +52,7 @@ router.route('/:todo_id')
         res.send(err)
       }
 
-      // get all the todos and send back 
-      Todo.find().select({"text": 1, "completed": 1, "_id": 0}).exec((error, todos) => {
-        if (error)
-          res.send(error);
-        res.json(todos)
-      })
+      returnAllTodos(res)
     })
   })
 
