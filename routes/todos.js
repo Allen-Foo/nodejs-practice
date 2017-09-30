@@ -44,6 +44,16 @@ router.route('/')
   })
 
 router.route('/:todo_id')
+  .put((req, res) => {
+    Todo.where({ _id: req.params.todo_id})
+      .update({text: req.body.text, completed: req.body.completed})
+      .exec((err, todo) => {
+        if (err)
+          res.send(err)
+
+        returnAllTodos(res)
+      })
+  })
   .delete((req, res) => {
     Todo.remove({
       _id: req.params.todo_id
