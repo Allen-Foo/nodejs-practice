@@ -26,6 +26,7 @@
     "mongoose": "^4.11.13"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
     "nodemon": "^1.12.1"
   }
 }
