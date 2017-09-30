@@ -16,6 +16,8 @@ mongoose.connect("mongodb://localhost:27017/todoDB", {
   useMongoClient: true
 })
 
+
+app.use(express.static(__dirname + '/apidocs'));               // set apidocs as the static files location
 app.use(bodyParser.urlencoded({'extended':false}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                    // parse application/json
 
