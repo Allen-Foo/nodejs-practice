@@ -1,8 +1,15 @@
 {
   "name": "nodejs-practice",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "practice with node js",
   "main": "index.js",
+  "apidoc": {
+    "name": "API Specification",
+    "version": "0.0.1",
+    "description": "",
+    "title": "Todo Api",
+    "url" : "http://localhost:3000"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
