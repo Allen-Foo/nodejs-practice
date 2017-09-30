@@ -35,6 +35,24 @@ router.route('/')
         res.send(err);
 
       // get all the todos and send back 
+      Todo.find().select({"text": 1, "completed": 1}).exec((error, todos) => {
+        if (error)
+          res.send(error);
+        res.json(todos)
+      })
+    })
+  })
+
+router.route('/:todo_id')
+  .delete((req, res) => {
+    Todo.remove({
+      _id: req.params.todo_id
+    }, (err, todo) => {
+      if (err) {
+        res.send(err)
+      }
+
+      // get all the todos and send back 
       Todo.find().select({"text": 1, "completed": 1, "_id": 0}).exec((error, todos) => {
         if (error)
           res.send(error);
